@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Summon</title>
+</head>
+<body>
+    <button onclick="Summon()">Summon</button>
+    <div id="summons"></div>
+
+    <script>
+        const units = {
+            unit1: {
+                "name": "Bulbasaur",
+                "rarity": "Common",
+                "gif": "img/001.gif"
+            },
+            unit2: {
+                "name": "Ivysaur",
+                "rarity": "Uncommon",
+                "gif": "img/002.gif"
+            },
+            unit3: {
+                "name": "Venusaur",
+                "rarity": "Rare",
+                "gif": "img/003.gif"
+            },
+            unit4: {
+                "name": "Charmander",
+                "rarity": "Common",
+                "gif": "img/004.gif"
+            },
+            unit5: {
+                "name": "Charmeleon",
+                "rarity": "Uncommon",
+                "gif": "img/005.gif"
+            },
+            unit6: {
+                "name": "Charizard",
+                "rarity": "Rare",
+                "gif": "img/006.gif"
+            },
+            unit7: {
+                "name": "Squirtle",
+                "rarity": "Common",
+                "gif": "img/007.gif"
+            },
+            unit8: {
+                "name": "Wartortle",
+                "rarity": "Uncommon",
+                "gif": "img/008.gif"
+            },
+            unit9: {
+                "name": "Blastoise",
+                "rarity": "Rare",
+                "gif": "img/009.gif"
+            },
+        };
+
+        function RarityCount(){
+            let commonCount = 0, uncommonCount = 0, rareCount = 0;
+
+            // Iterate through the units and count the rarities
+            for (let a in units){
+                const rarity = units[a].rarity;
+                if (rarity == "Common"){
+                    commonCount++;
+                }
+                else if (rarity == "Uncommon"){
+                    uncommonCount++;
+                }
+                else{
+                    rareCount++;
+                }
+            }
+            return {commonCount, uncommonCount, rareCount};
+        }
+
+        function Summon(){
+            const summons = document.getElementById('summons');
+            summons.innerHTML = '';
+
+            const counting = RarityCount(); //Returns Rarity Counters.
+
+            for (let i = 0; i < 3; i++) {
+                const randomValue = Math.random();
+                let summonedUnit;
+
+                if (randomValue <= 7/(counting.commonCount * 10)){
+                    summonedUnit = units.unit1;
+                } 
+                else if (randomValue <= 14/(counting.commonCount * 10)){
+                    summonedUnit = units.unit4;
+                } 
+                else if (randomValue <= 21/(counting.commonCount * 10)){
+                    summonedUnit = units.unit7;
+                }
+                else if (randomValue <= 23/(counting.uncommonCount * 10)){
+                    summonedUnit = units.unit2;
+                } 
+                else if (randomValue <= 25/(counting.uncommonCount * 10)){
+                    summonedUnit = units.unit5;
+                } 
+                else if(randomValue <= 27/(counting.uncommonCount * 10)){
+                    summonedUnit = units.unit8;
+                }
+                else if (randomValue <= 28/(counting.rareCount * 10)){
+                    summonedUnit = units.unit3;
+                } 
+                else if (randomValue <= (counting.rareCount * 10)){
+                    summonedUnit = units.unit6;
+                } 
+                else{
+                    summonedUnit = units.unit9;
+                }
+                const unitImage = document.createElement('img');
+                unitImage.src = summonedUnit.gif;
+                summons.appendChild(unitImage);
+            }
+        }
+    </script>
+</body>
+</html>
